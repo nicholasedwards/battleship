@@ -1,0 +1,29 @@
+You will be asked to decide on the size of the grid. 
+Type a number to represent the number of columns or rows, and press Enter.
+
+Then, you will be provided with the following prompt:
+
+
+I have laid out my ships on the grid.
+You now need to layout your two ships.
+The first is two units long and the
+second is three units long.
+The grid has A1 at the top left and D4 at the bottom right.
+
+Enter the squares for the two-unit ship:
+
+
+At this point, you can enter coordinates indicating the placement of both ends of your ship.
+For example, to place a ship on the coordinates A1 and A2, type and enter:
+
+A1 A2
+
+Once you have set the placement of your ships, the game will begin.
+
+You will be prompted to enter a coordinate to fire on. If you hit the enemy ship,
+your screen will display a H on that coordinate.
+
+The enemy will then attempt to hit one of your ships. If the enemy hits your ship,
+your screen will display a H on that coordinate.
+
+Whoever sinks both of their enemy's ships is the winner!
