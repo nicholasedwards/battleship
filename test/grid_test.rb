@@ -16,7 +16,7 @@ class TestGrid < Minitest::Test
     assert_instance_of Cell, grid[3][3]
   end
 
-  def test_grid_has_a_ship
+  def test_grid_can_add_small_ships
     empty_grid = Grid.new
     grid = empty_grid.populate_grid
     grid.place_small_ship("A0", "A1")
@@ -25,5 +25,14 @@ class TestGrid < Minitest::Test
     assert_equal false, grid[1][0].is_ship?
     assert_equal false, grid[1][1].is_ship?
     assert_equal false, grid[0][2].is_ship?
+
+    another_empty_grid = Grid.new
+    another_grid = empty_grid.populate_grid
+    another_grid.place_small_ship("A0", "B0")
+    assert_equal true, grid[0][0].is_ship?
+    assert_equal true, grid[1][0].is_ship?
+    assert_equal false, grid[0][1].is_ship?
+    assert_equal false, grid[1][1].is_ship?
+    assert_equal false, grid[2][0].is_ship?
   end
 end
