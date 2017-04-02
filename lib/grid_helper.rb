@@ -27,4 +27,24 @@ include GridHelper
     self[end_row_index][end_column_index].is_ship = true
   end
 
+  def place_large_ship(start_position, end_position)
+    start_row_index, start_column_index = GridHelper::format_position(start_position)
+    end_row_index, end_column_index = GridHelper::format_position(end_position)
+
+    # Set the ends of the ship
+    self[start_row_index][start_column_index].is_ship = true
+    self[end_row_index][end_column_index].is_ship = true
+
+    # Set the middle of the ship
+    if start_row_index == end_row_index
+      # The ship is horizontal
+      middle_column_index = ( start_column_index + end_column_index ) / 2
+      self[start_row_index][middle_column_index].is_ship = true
+    else 
+      # The ship is not horizontal
+      middle_row_index = ( start_row_index + end_row_index ) / 2
+      self[middle_row_index][start_column_index].is_ship = true
+    end
+  end
+
 end
