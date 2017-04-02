@@ -92,4 +92,21 @@ class TestGrid < Minitest::Test
     assert_equal false, grid[3][0].is_ship?
   end
 
+  def test_no_diagonal_ships
+    empty_grid = Grid.new
+    grid = empty_grid.populate_grid
+
+    assert_output("You tried placing a ship diagonally! Your ship can only be horizontal or vertical. Please try again.\n") {
+      grid.place_small_ship("A1", "B2")
+    }
+    assert_equal false, grid[0][0].is_ship?
+    assert_equal false, grid[1][1].is_ship?
+
+    assert_output("You tried placing a ship diagonally! Your ship can only be horizontal or vertical. Please try again.\n") {
+      grid.place_large_ship("A1", "D3")
+    }
+    assert_equal false, grid[0][0].is_ship?
+    assert_equal false, grid[3][2].is_ship?
+  end
+
 end
