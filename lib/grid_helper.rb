@@ -14,6 +14,24 @@ module GridHelper
 
     [row_index, column_index]
   end
+
+  def self.validate_small_ship(start_row_index, start_column_index, end_row_index, end_column_index)
+    if ( end_column_index - start_column_index ) > 1 || ( end_row_index - start_row_index ) > 1
+      puts "You tried placing a small ship greater than two cells long! Please try again."
+      return false
+    else
+      return true
+    end
+  end
+
+  def self.validate_large_ship(start_row_index, start_column_index, end_row_index, end_column_index)
+    if ( end_column_index - start_column_index ) > 2 || ( end_row_index - start_row_index ) > 2
+      puts "You tried placing a large ship greater than three cells long! Please try again."
+      return false
+    else
+      return true
+    end
+  end
 end
 
 class Array
@@ -22,13 +40,7 @@ include GridHelper
   def place_small_ship(start_position, end_position)
     start_row_index, start_column_index = GridHelper::format_position(start_position)
     end_row_index, end_column_index = GridHelper::format_position(end_position)
-    validate_and_set_small_ship(start_row_index, start_column_index, end_row_index, end_column_index)
-  end
-
-  def validate_and_set_small_ship(start_row_index, start_column_index, end_row_index, end_column_index)
-    if ( end_column_index - start_column_index ) > 1 || ( end_row_index - start_row_index ) > 1
-      puts "You tried placing a small ship greater than two cells long! Please try again."
-    else
+    if GridHelper::validate_small_ship(start_row_index, start_column_index, end_row_index, end_column_index) == true
       set_ends_of_ship(start_row_index, start_column_index, end_row_index, end_column_index)
     end
   end
@@ -36,13 +48,7 @@ include GridHelper
   def place_large_ship(start_position, end_position)
     start_row_index, start_column_index = GridHelper::format_position(start_position)
     end_row_index, end_column_index = GridHelper::format_position(end_position)
-    validate_and_set_large_ship(start_row_index, start_column_index, end_row_index, end_column_index)
-  end
-
-  def validate_and_set_large_ship(start_row_index, start_column_index, end_row_index, end_column_index)
-    if ( end_column_index - start_column_index ) > 2 || ( end_row_index - start_row_index ) > 2
-      puts "You tried placing a large ship greater than three cells long! Please try again."
-    else
+    if GridHelper::validate_large_ship(start_row_index, start_column_index, end_row_index, end_column_index) == true
       set_ends_of_ship(start_row_index, start_column_index, end_row_index, end_column_index)
       set_middle_of_large_ship(start_row_index, start_column_index, end_row_index, end_column_index)
     end
