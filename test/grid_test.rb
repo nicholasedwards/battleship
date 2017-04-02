@@ -55,4 +55,23 @@ class TestGrid < Minitest::Test
     assert_equal false, another_grid[0][1].is_ship?
     assert_equal false, another_grid[3][0].is_ship?
   end
+
+  def test_small_ships_are_only_2_cells
+    empty_grid = Grid.new
+    grid = empty_grid.populate_grid 
+    assert_output("You tried placing a ship greater than two cells long! Please try again.\n") do 
+      grid.place_small_ship("A1", "A4") 
+    end
+    assert_equal false, grid[0][0].is_ship?
+    assert_equal false, grid[0][1].is_ship?
+
+    another_empty_grid = Grid.new
+    another_grid = another_empty_grid.populate_grid 
+    assert_output("You tried placing a ship greater than two cells long! Please try again.\n") do 
+      another_grid.place_small_ship("A1", "A4") 
+    end
+    assert_equal false, another_grid[0][0].is_ship?
+    assert_equal false, another_grid[0][1].is_ship?    
+  end
+
 end
