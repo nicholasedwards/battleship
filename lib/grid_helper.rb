@@ -16,11 +16,11 @@ module GridHelper
   end
 
   def self.validate_small_ship(start_row_index, start_column_index, end_row_index, end_column_index)
-    if ( start_row_index != end_row_index ) && ( start_column_index != end_column_index )
+    if ship_is_diagonal?(start_row_index, start_column_index, end_row_index, end_column_index)
       puts "You tried placing a ship diagonally! Your ship can only be horizontal or vertical. Please try again."
       return false
-    elsif ( end_column_index - start_column_index ) > 1 || ( end_row_index - start_row_index ) > 1
-      puts "You tried placing a small ship greater than two cells long! The coordinates must correspond to the first and last units of the ship. Please try again."
+    elsif ship_wraps_or_is_too_long?(start_row_index, start_column_index, end_row_index, end_column_index)
+      puts "You tried placing a small ship that is greater than two cells long, or would wrap around the grid! The coordinates must correspond to the first and last cells of the ship. Please try again."
       return false
     else
       return true
@@ -28,15 +28,23 @@ module GridHelper
   end
 
   def self.validate_large_ship(start_row_index, start_column_index, end_row_index, end_column_index)
-    if ( start_row_index != end_row_index ) && ( start_column_index != end_column_index )
+    if ship_is_diagonal?(start_row_index, start_column_index, end_row_index, end_column_index)
       puts "You tried placing a ship diagonally! Your ship can only be horizontal or vertical. Please try again."
       return false
-    elsif ( end_column_index - start_column_index ) > 2 || ( end_row_index - start_row_index ) > 2
-      puts "You tried placing a large ship greater than three cells long! The coordinates must correspond to the first and last units of the ship. Please try again."
+    elsif ship_wraps_or_is_too_long?(start_row_index, start_column_index, end_row_index, end_column_index)
+      puts "You tried placing a large ship that is greater than three cells long, or would wrap around the grid! The coordinates must correspond to the first and last cells of the ship. Please try again."
       return false
     else
       return true
     end
+  end
+
+  def self.ship_is_diagonal?(start_row_index, start_column_index, end_row_index, end_column_index)
+    ( start_row_index != end_row_index ) && ( start_column_index != end_column_index )
+  end
+
+  def self.ship_wraps_or_is_too_long?(start_row_index, start_column_index, end_row_index, end_column_index)
+    ( end_column_index - start_column_index ) > 2 || ( end_row_index - start_row_index ) > 2
   end
 end
 
