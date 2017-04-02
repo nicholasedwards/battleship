@@ -1,4 +1,5 @@
 require 'minitest/autorun'
+require './lib/cell'
 
 class TestCell < Minitest::Test
   def test_cell_has_a_position
