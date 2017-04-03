@@ -97,6 +97,12 @@ include GridHelper
     elsif self[end_row_index][end_column_index].is_ship? == true
       puts "You tried placing a ship that would overlap over another ship! Please try again."
       return false
+    elsif self[ ( start_row_index + end_row_index ) / 2 ][start_column_index].is_ship? == true
+      puts "You tried placing a ship that would overlap over another ship! Please try again."
+      return false
+    elsif self[start_row_index][ ( start_column_index + end_column_index ) / 2 ].is_ship? == true
+      puts "You tried placing a ship that would overlap over another ship! Please try again."
+      return false
     else
       return true
     end
