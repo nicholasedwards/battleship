@@ -109,4 +109,21 @@ class TestGrid < Minitest::Test
     assert_equal false, grid[3][2].is_ship?
   end
 
+  def test_no_overlapping_ships
+    empty_grid = Grid.new
+    grid = empty_grid.populate_grid
+
+    grid.place_small_ship("A1", "A2")
+    assert_output("You tried placing a ship that would overlap over another ship! Please try again.\n") {
+      grid.place_small_ship("A2", "A3")
+    }
+    assert_equal false, grid[0][2].is_ship?
+
+    grid.place_large_ship("B1", "B3")
+    assert_output("You tried placing a ship that would overlap over another ship! Please try again.\n") {
+      grid.place_large_ship("B2", "B4")
+    }
+    assert_equal false, grid[1][3].is_ship?
+  end
+
 end
