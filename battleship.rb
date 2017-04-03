@@ -1,5 +1,5 @@
 require './lib/gameplay_helper'
-include GameplayHelper
+include GamePlay
 
 user_input_provided = false
 
@@ -12,7 +12,7 @@ until user_input_provided
   action = gets.chomp
     if action == "p" || action == "play"
       user_input_provided = true
-      GameplayHelper::play_game
+      GamePlay::display_grid
     elsif action == "i" || action == "instructions"
       instructions = File.open("./instructions/instructions.txt", "r")
       puts instructions.read
