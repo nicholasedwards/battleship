@@ -1,7 +1,6 @@
 require './lib/grid_helper'
-require 'pry'
 
-module GamePlay
+module ShipPlacement
   def place_computer_ships(grid)
     grid_with_small_ship = place_computer_small_ship(grid)
     grid_with_small_ship

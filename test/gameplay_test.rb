@@ -1,15 +1,14 @@
 require 'minitest/autorun'
 require './lib/grid'
-require './lib/gameplay_helper'
-include GamePlay
+require './lib/ship_placement_helper'
+include ShipPlacement
 
-class TestGamePlay < Minitest::Test
+class TestShipPlacement < Minitest::Test
 
   def test_computer_places_ships
     empty_grid = Grid.new
     grid = empty_grid.populate_grid
-    grid_with_computer_ships = GamePlay::place_computer_ships(grid)
-
+    grid_with_computer_ships = ShipPlacement::place_computer_ships(grid)
     ship_cells = 0
     grid_with_computer_ships.each do |row|
       row.each do |cell|
