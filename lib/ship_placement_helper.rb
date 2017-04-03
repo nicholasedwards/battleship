@@ -28,7 +28,9 @@ module ShipPlacement
       end_row_index, end_column_index, end_cell = generate_large_ship_end_position(start_row_index, start_column_index)
       if !grid[end_row_index].nil? && !grid[end_row_index][end_column_index].nil?
         grid.place_large_ship(start_cell, end_cell)
-        ship_placed = true if grid[end_row_index][end_column_index].is_ship? == true
+        if grid[end_row_index][end_column_index].is_ship? == true && grid[start_row_index][start_column_index].is_ship?
+          ship_placed = true 
+        end
       end
     end
     grid

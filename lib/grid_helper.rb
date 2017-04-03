@@ -1,3 +1,5 @@
+require 'pry'
+
 module GridHelper
 # Methods that do not directly interact with the grid
 
