@@ -8,4 +8,10 @@ class TestGamePlay < Minitest::Test
       GamePlay::display_grid
     }
   end
+
+  def test_display_grid_headers
+    assert_output(/A/) { 
+      GamePlay::display_grid
+    }
+  end
 end
