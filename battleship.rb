@@ -13,6 +13,7 @@ until user_input_provided
     if action == "p" || action == "play"
       user_input_provided = true
       computer_grid = GamePlay::create_computer_grid
+      user_grid = GamePlay::get_user_grid
     elsif action == "i" || action == "instructions"
       instructions = File.open("./instructions/instructions.txt", "r")
       puts instructions.read

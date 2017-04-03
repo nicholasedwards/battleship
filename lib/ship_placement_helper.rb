@@ -7,6 +7,13 @@ module ShipPlacement
     grid_with_both_ships
   end
 
+  def place_user_ships(grid)
+    grid_with_small_ship = place_user_small_ship(grid)
+    puts "Enter the squares for the three-unit ship:\n"
+    grid_with_both_ships = place_user_large_ship(grid_with_small_ship)
+    grid_with_both_ships
+  end
+
   def place_computer_small_ship(grid)
     ship_placed = false
     until ship_placed
@@ -33,6 +40,20 @@ module ShipPlacement
         end
       end
     end
+    grid
+  end
+
+  def place_user_small_ship(grid)
+    start_cell = gets.chomp
+    end_cell = gets.chomp
+    grid.place_small_ship(start_cell, end_cell)
+    grid
+  end
+
+  def place_user_large_ship(grid)
+    start_cell = gets.chomp
+    end_cell = gets.chomp
+    grid.place_large_ship(start_cell, end_cell)
     grid
   end
 
@@ -162,8 +183,6 @@ module ShipPlacement
     end
    [end_row_index, end_column_index]
   end
-
-
 
   def set_formatted_end_cell(end_row_index, end_column_index)
     end_row_letter = {0 => "A", 1 => "B", 2 => "C", 3 => "D"}[end_row_index]
