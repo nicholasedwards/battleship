@@ -1,4 +1,6 @@
 module GridHelper
+# Methods that do not directly interact with the grid
+
     def self.format_position(input_position)
     letters = input_position.split("")
 
@@ -46,15 +48,18 @@ module GridHelper
   def self.ship_wraps_or_is_too_long?(start_row_index, start_column_index, end_row_index, end_column_index)
     ( end_column_index - start_column_index ) > 2 || ( end_row_index - start_row_index ) > 2
   end
+
 end
 
 class Array
+# Methods that directly interact with the grid
+
 include GridHelper
 
   def place_small_ship(start_position, end_position)
     start_row_index, start_column_index = GridHelper::format_position(start_position)
     end_row_index, end_column_index = GridHelper::format_position(end_position)
-    if GridHelper::validate_small_ship(start_row_index, start_column_index, end_row_index, end_column_index) == true
+    if GridHelper::validate_small_ship(start_row_index, start_column_index, end_row_index, end_column_index) == true && no_overlaps?(start_row_index, start_column_index, end_row_index, end_column_index) == true
       set_ends_of_ship(start_row_index, start_column_index, end_row_index, end_column_index)
     end
   end
@@ -62,7 +67,7 @@ include GridHelper
   def place_large_ship(start_position, end_position)
     start_row_index, start_column_index = GridHelper::format_position(start_position)
     end_row_index, end_column_index = GridHelper::format_position(end_position)
-    if GridHelper::validate_large_ship(start_row_index, start_column_index, end_row_index, end_column_index) == true
+    if GridHelper::validate_large_ship(start_row_index, start_column_index, end_row_index, end_column_index) == true && no_overlaps?(start_row_index, start_column_index, end_row_index, end_column_index) == true
       set_ends_of_ship(start_row_index, start_column_index, end_row_index, end_column_index)
       set_middle_of_large_ship(start_row_index, start_column_index, end_row_index, end_column_index)
     end
@@ -85,4 +90,15 @@ include GridHelper
     self[end_row_index][end_column_index].is_ship = true
   end
 
+  def no_overlaps?(start_row_index, start_column_index, end_row_index, end_column_index)
+    if self[start_row_index][start_column_index].is_ship? == true
+      puts "You tried placing a ship that would overlap over another ship! Please try again."
+      return false
+    elsif self[end_row_index][end_column_index].is_ship? == true
+      puts "You tried placing a ship that would overlap over another ship! Please try again."
+      return false
+    else
+      return true
+    end
+  end
 end

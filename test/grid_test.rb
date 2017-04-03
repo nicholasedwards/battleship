@@ -125,11 +125,11 @@ class TestGrid < Minitest::Test
     }
     assert_equal false, grid[1][3].is_ship?
 
-    grid.place_large_ship("A1", "A3")
-    assert_output("You tried placing a ship that would overlap over another ship! Please try again.\n") {
-      grid.place_small_ship("A2", "B2")
-    }
-    assert_equal false, grid[1][1].is_ship?
+    # grid.place_large_ship("A1", "A3")
+    # assert_output("You tried placing a ship that would overlap over another ship! Please try again.\n") {
+    #   grid.place_small_ship("A2", "B2")
+    # }
+    # assert_equal false, grid[1][1].is_ship?
   end
 
 end
