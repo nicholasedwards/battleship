@@ -1,5 +1,6 @@
 require 'minitest/autorun'
 require './lib/grid'
+require 'pry'
 
 class TestGrid < Minitest::Test
   def test_grid_has_4_rows_and_4_columns
@@ -111,25 +112,27 @@ class TestGrid < Minitest::Test
 
   def test_no_overlapping_ships
     empty_grid = Grid.new
-    grid = empty_grid.populate_grid
+    grid_1 = empty_grid.populate_grid
+    grid_2 = empty_grid.populate_grid
+    grid_3 = empty_grid.populate_grid
 
-    grid.place_small_ship("A1", "A2")
+    grid_1.place_small_ship("A1", "A2")
     assert_output("You tried placing a ship that would overlap over another ship! Please try again.\n") {
-      grid.place_small_ship("A2", "A3")
+      grid_1.place_small_ship("A2", "A3")
     }
-    assert_equal false, grid[0][2].is_ship?
+    assert_equal false, grid_1[0][2].is_ship?
 
-    grid.place_large_ship("B1", "B3")
+    grid_2.place_large_ship("B1", "B3")
     assert_output("You tried placing a ship that would overlap over another ship! Please try again.\n") {
-      grid.place_large_ship("B2", "B4")
+      grid_2.place_large_ship("B2", "B4")
     }
-    assert_equal false, grid[1][3].is_ship?
+    assert_equal false, grid_2[1][3].is_ship?
 
-    # grid.place_large_ship("A1", "A3")
-    # assert_output("You tried placing a ship that would overlap over another ship! Please try again.\n") {
-    #   grid.place_small_ship("A2", "B2")
-    # }
-    # assert_equal false, grid[1][1].is_ship?
+    grid_3.place_large_ship("A1", "A3")
+    assert_output("You tried placing a ship that would overlap over another ship! Please try again.\n") {
+      grid_3.place_small_ship("A2", "B2")
+    }
+    assert_equal false, grid_3[1][1].is_ship?
   end
 
 end
