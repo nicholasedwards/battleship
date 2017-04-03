@@ -4,6 +4,12 @@ include ShipPlacement
 require 'pry'
 
 module GamePlay
+  def create_computer_grid
+    empty_grid = Grid.new
+    grid = empty_grid.populate_grid
+    grid_with_computer_ships = ShipPlacement::place_computer_ships(grid)
+  end
+  
   def display_grid(grid)
     puts "  1  2  3  4"
     4.times do |row_index|
