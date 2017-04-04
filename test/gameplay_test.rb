@@ -3,17 +3,10 @@ require './lib/gameplay_helper'
 include GamePlay
 
 class TestGamePlay < Minitest::Test
-  def test_display_grid
-    computer_grid = GamePlay::create_computer_grid
-    assert_output(/false/) { 
-      GamePlay.display_grid(computer_grid)
-    }
-  end
-
   def test_display_grid_headers
     computer_grid = GamePlay::create_computer_grid
     assert_output(/A/) { 
-      GamePlay.display_grid(computer_grid)
+      GamePlay.display_grids(computer_grid, computer_grid.dup)
     }
   end
 

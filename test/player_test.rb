@@ -1,4 +1,6 @@
 require 'minitest/autorun'
+require './lib/cell'
+require './lib/player'
 
 class TestPlayer < Minitest::Test
   def test_player_can_shoot
