@@ -1,5 +1,4 @@
 require './lib/cell'
-require './lib/grid_helper'
 
 class Grid
   def populate_grid
