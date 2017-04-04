@@ -22,11 +22,4 @@ class TestGamePlay < Minitest::Test
       GamePlay::create_computer_grid
     }
   end
-
-  def test_user_adds_ships
-    user_grid = GamePlay::get_user_grid
-    assert_output(/false/) { 
-      GamePlay::display_grid(user_grid)
-    }
-  end
 end

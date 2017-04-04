@@ -1,6 +1,7 @@
 require './lib/grid_helper'
+require './lib/ship_placement_validation'
 include GridHelper
-require 'pry'
+include ShipPlacementValidation
 
 module ShipPlacement
   def place_computer_ships(grid)
