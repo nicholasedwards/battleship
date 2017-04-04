@@ -2,8 +2,10 @@ require './lib/grid'
 require './lib/ship_placement_helper'
 require './lib/player'
 require './lib/formatting_helper'
+require './lib/input_validation'
 include ShipPlacement
 include Formatting
+include InputValidation
 require 'pry'
 
 module GamePlay
@@ -77,7 +79,7 @@ module GamePlay
   def get_player_shot(player, computer_grid)
     puts "It is your turn to fire. Please enter a position to fire on:"
     player_target = gets.chomp
-    # validate player_target
+    player_target = validate_input(player_target)
     computer_grid = player.fire(player_target, computer_grid)
     row_index, column_index = format_position(player_target)
     if computer_grid[row_index][column_index].status == "H"

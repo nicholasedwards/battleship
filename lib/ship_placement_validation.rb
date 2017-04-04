@@ -1,10 +1,10 @@
 module ShipPlacementValidation
   def validate_small_ship(start_row_index, start_column_index, end_row_index, end_column_index, user)
     if ship_is_diagonal?(start_row_index, start_column_index, end_row_index, end_column_index)
-      puts "You tried placing a ship diagonally! Your ship can only be horizontal or vertical. Please try again." if user == :player
+      puts "You tried placing a ship diagonally! Your ship can only be horizontal or vertical. Please type the start cell again and press enter, followed by the same process for the end cell." if user == :player
       return false
     elsif small_ship_wraps_or_is_too_long?(start_row_index, start_column_index, end_row_index, end_column_index)
-      puts "You tried placing a small ship that is greater than two cells long, or would wrap around the grid! The coordinates must correspond to the first and last cells of the ship. Please try again." if user == :player
+      puts "You tried placing a small ship that is greater than two cells long, or would wrap around the grid! The coordinates must correspond to the first and last cells of the ship. Please type the start cell again and press enter, followed by the same process for the end cell." if user == :player
       return false
     else
       return true
@@ -13,13 +13,13 @@ module ShipPlacementValidation
 
   def validate_large_ship(start_row_index, start_column_index, end_row_index, end_column_index, user)
     if ship_is_diagonal?(start_row_index, start_column_index, end_row_index, end_column_index)
-      puts "You tried placing a ship diagonally! Your ship can only be horizontal or vertical. Please try again." if user == :player
+      puts "You tried placing a ship diagonally! Your ship can only be horizontal or vertical. Please type the start cell again and press enter, followed by the same process for the end cell." if user == :player
       return false
     elsif large_ship_wraps_or_is_too_long?(start_row_index, start_column_index, end_row_index, end_column_index)
-      puts "You tried placing a large ship that is greater than three cells long, or would wrap around the grid! The coordinates must correspond to the first and last cells of the ship. Please try again." if user == :player
+      puts "You tried placing a large ship that is greater than three cells long, or would wrap around the grid! The coordinates must correspond to the first and last cells of the ship. Please type the start cell again and press enter, followed by the same process for the end cell." if user == :player
       return false
     elsif large_ship_is_too_small(start_row_index, start_column_index, end_row_index, end_column_index)
-      puts "You tried placing a large ship that is smaller than three cells long! The coordinates must correspond to the first and last cells of the ship. Please try again." if user == :player
+      puts "You tried placing a large ship that is smaller than three cells long! The coordinates must correspond to the first and last cells of the ship. Please type the start cell again and press enter, followed by the same process for the end cell." if user == :player
     else
       return true
     end
@@ -43,19 +43,19 @@ module ShipPlacementValidation
 
   def no_overlaps?(start_row_index, start_column_index, end_row_index, end_column_index, user)
     if start_row_index == end_row_index && start_column_index == end_column_index
-      puts "You tried placing a ship that would overlap over itself! Please try again." if user == :player
+      puts "You tried placing a ship that would overlap over itself! Please type the start cell again and press enter, followed by the same process for the end cell." if user == :player
       return false
     elsif self[start_row_index][start_column_index].is_ship? == true
-      puts "You tried placing a ship that would overlap over another ship! Please try again." if user == :player
+      puts "You tried placing a ship that would overlap over another ship! Please type the start cell again and press enter, followed by the same process for the end cell." if user == :player
       return false
     elsif self[end_row_index][end_column_index].is_ship? == true
-      puts "You tried placing a ship that would overlap over another ship! Please try again." if user == :player
+      puts "You tried placing a ship that would overlap over another ship! Please type the start cell again and press enter, followed by the same process for the end cell." if user == :player
       return false
     elsif self[ ( start_row_index + end_row_index ) / 2 ][start_column_index].is_ship? == true
-      puts "You tried placing a ship that would overlap over another ship! Please try again." if user == :player
+      puts "You tried placing a ship that would overlap over another ship! Please type the start cell again and press enter, followed by the same process for the end cell." if user == :player
       return false
     elsif self[start_row_index][ ( start_column_index + end_column_index ) / 2 ].is_ship? == true
-      puts "You tried placing a ship that would overlap over another ship! Please try again." if user == :player
+      puts "You tried placing a ship that would overlap over another ship! Please type the start cell again and press enter, followed by the same process for the end cell." if user == :player
       return false
     else
       return true
