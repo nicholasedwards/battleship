@@ -103,7 +103,7 @@ module ShipPlacement
     elsif direction == :left
       end_row_index, end_column_index = set_small_ship_end_left(start_row_index, start_column_index)
     end
-    end_cell = set_formatted_end_cell(end_row_index, end_column_index)
+    end_cell = format_cell(end_row_index, end_column_index)
     [end_row_index, end_column_index, end_cell]
   end
 
@@ -118,7 +118,7 @@ module ShipPlacement
     elsif direction == :left
       end_row_index, end_column_index = set_large_ship_end_left(start_row_index, start_column_index)
     end
-    end_cell = set_formatted_end_cell(end_row_index, end_column_index)
+    end_cell = format_cell(end_row_index, end_column_index)
     [end_row_index, end_column_index, end_cell]
   end
 

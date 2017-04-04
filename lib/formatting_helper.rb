@@ -13,11 +13,11 @@ module Formatting
     [start_row_index, end_row_index, start_column_index, end_column_index]
   end
 
-  def set_formatted_end_cell(end_row_index, end_column_index)
-    end_row_letter = {0 => "A", 1 => "B", 2 => "C", 3 => "D"}[end_row_index]
-    end_column = end_column_index + 1
-    end_cell = [end_row_letter, end_column].join
-    end_cell
+  def format_cell(row_index, column_index)
+    row_letter = {0 => "A", 1 => "B", 2 => "C", 3 => "D"}[row_index]
+    column = column_index + 1
+    cell = [row_letter, column].join
+    cell
   end
 
   def get_row_letter(row_index)
