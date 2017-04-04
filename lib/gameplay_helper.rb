@@ -74,6 +74,7 @@ module GamePlay
       display_grids(computer_grid, player_grid)
       end_player_turn
       player_grid = make_ai_shot(ai, player_grid)
+      display_grids(computer_grid, player_grid)
       # change this to only happen when all ship elements on a grid are hit
       game_complete = true
     end
@@ -101,5 +102,6 @@ module GamePlay
     else
       puts "The AI fired at #{cell} and missed."
     end
+    player_grid
   end
 end
