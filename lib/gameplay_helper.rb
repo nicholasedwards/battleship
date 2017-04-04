@@ -1,7 +1,9 @@
 require './lib/grid'
 require './lib/ship_placement_helper'
 require './lib/player'
+require './lib/formatting_helper'
 include ShipPlacement
+include Formatting
 require 'pry'
 
 module GamePlay
@@ -25,10 +27,26 @@ module GamePlay
     computer_grid = GamePlay.create_computer_grid
     player_grid = GamePlay.get_player_grid
     display_grids(computer_grid, player_grid)
-    puts "It is your turn to fire. Please enter a position to fire on:"
-    player_target = gets.chomp
-    computer_grid = player.fire(player_target, computer_grid)
-    display_grids(computer_grid, player_grid)
+    game_complete = false
+    until game_complete
+      puts "It is your turn to fire. Please enter a position to fire on:"
+      player_target = gets.chomp
+      # validate player_target
+      computer_grid = player.fire(player_target, computer_grid)
+      row_index, column_index = format_position(player_target)
+      if computer_grid[row_index][column_index].status == "H"
+        puts "You hit an enemy ship!"
+      else
+        puts "You missed."
+      end
+      display_grids(computer_grid, player_grid)
+      turn_complete = ""
+      until turn_complete.include?("\n")
+        puts "Please press ENTER to end your turn."
+        turn_complete = gets
+      end
+      game_complete = true
+    end
   end
   
   def display_grids(grid1, grid2)
