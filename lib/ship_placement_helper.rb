@@ -51,8 +51,8 @@ module ShipPlacement
     until ship_placed
       start_cell = gets.chomp
       end_cell = gets.chomp
-      start_row_index, start_column_index = Formatting::format_position(start_cell)
-      end_row_index, end_column_index = Formatting::format_position(end_cell)
+      start_row_index, start_column_index = Formatting.format_position(start_cell)
+      end_row_index, end_column_index = Formatting.format_position(end_cell)
       if !grid[end_row_index].nil? && !grid[end_row_index][end_column_index].nil?
         grid = grid.place_small_ship(start_cell, end_cell, :player)
         if grid[end_row_index][end_column_index].is_ship? == true && grid[start_row_index][start_column_index].is_ship? == true
@@ -68,8 +68,8 @@ module ShipPlacement
     until ship_placed
       start_cell = gets.chomp
       end_cell = gets.chomp
-      start_row_index, start_column_index = Formatting::format_position(start_cell)
-      end_row_index, end_column_index = Formatting::format_position(end_cell)
+      start_row_index, start_column_index = Formatting.format_position(start_cell)
+      end_row_index, end_column_index = Formatting.format_position(end_cell)
       if !grid[end_row_index].nil? && !grid[end_row_index][end_column_index].nil?
         grid = grid.place_large_ship(start_cell, end_cell, :player)
         if grid[end_row_index][end_column_index].is_ship? == true && grid[start_row_index][start_column_index].is_ship? == true
@@ -212,18 +212,18 @@ class Array
 # Methods that directly interact with the grid
 
   def place_small_ship(start_position, end_position, user)
-    start_row_index, start_column_index = Formatting::format_position(start_position)
-    end_row_index, end_column_index = Formatting::format_position(end_position)
-    if Formatting::validate_small_ship(start_row_index, start_column_index, end_row_index, end_column_index, user) == true && no_overlaps?(start_row_index, start_column_index, end_row_index, end_column_index, user) == true
+    start_row_index, start_column_index = Formatting.format_position(start_position)
+    end_row_index, end_column_index = Formatting.format_position(end_position)
+    if Formatting.validate_small_ship(start_row_index, start_column_index, end_row_index, end_column_index, user) == true && no_overlaps?(start_row_index, start_column_index, end_row_index, end_column_index, user) == true
       set_ends_of_ship(start_row_index, start_column_index, end_row_index, end_column_index)
     end
     self
   end
 
   def place_large_ship(start_position, end_position, user)
-    start_row_index, start_column_index = Formatting::format_position(start_position)
-    end_row_index, end_column_index = Formatting::format_position(end_position)
-    if Formatting::validate_large_ship(start_row_index, start_column_index, end_row_index, end_column_index, user) == true && no_overlaps?(start_row_index, start_column_index, end_row_index, end_column_index, user) == true
+    start_row_index, start_column_index = Formatting.format_position(start_position)
+    end_row_index, end_column_index = Formatting.format_position(end_position)
+    if Formatting.validate_large_ship(start_row_index, start_column_index, end_row_index, end_column_index, user) == true && no_overlaps?(start_row_index, start_column_index, end_row_index, end_column_index, user) == true
       set_ends_of_ship(start_row_index, start_column_index, end_row_index, end_column_index)
       set_middle_of_large_ship(start_row_index, start_column_index, end_row_index, end_column_index)
     end
