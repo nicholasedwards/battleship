@@ -19,14 +19,28 @@ module GamePlay
     player_grid
   end
   
-  def display_grid(grid)
+  def display_grids(grid1, grid2)
     puts "  1  2  3  4"
     4.times do |row_index|
       row_letter = { 0 => "A", 1 => "B", 2 => "C", 3 => "D"}[row_index]
       print row_letter
       4.times do |column_index|
         print " "
-        print ( grid[row_index][column_index].is_ship? == true )
+        print ( grid1[row_index][column_index].is_ship? == true )
+        print " "
+      end
+      puts ""
+    end
+
+    puts "================"
+
+    puts "  1  2  3  4"
+    4.times do |row_index|
+      row_letter = { 0 => "A", 1 => "B", 2 => "C", 3 => "D"}[row_index]
+      print row_letter
+      4.times do |column_index|
+        print " "
+        print ( grid1[row_index][column_index].is_ship? == true )
         print " "
       end
       puts ""

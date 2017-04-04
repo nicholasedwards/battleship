@@ -14,6 +14,7 @@ until player_input_provided
       player_input_provided = true
       computer_grid = GamePlay.create_computer_grid
       player_grid = GamePlay.get_player_grid
+      GamePlay.display_grids(computer_grid, player_grid)
     elsif action == "i" || action == "instructions"
       instructions = File.open("./instructions/instructions.txt", "r")
       puts instructions.read
