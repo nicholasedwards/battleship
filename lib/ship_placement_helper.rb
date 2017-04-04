@@ -1,4 +1,6 @@
 require './lib/grid_helper'
+include GridHelper
+require 'pry'
 
 module ShipPlacement
   def place_computer_ships(grid)
@@ -20,7 +22,7 @@ module ShipPlacement
       start_row_index, start_column_index, start_cell = generate_start_position
       end_row_index, end_column_index, end_cell = generate_small_ship_end_position(start_row_index, start_column_index)
       if !grid[end_row_index].nil? && !grid[end_row_index][end_column_index].nil?
-        grid.place_small_ship(start_cell, end_cell)
+        grid.place_small_ship(start_cell, end_cell, :computer)
         ship_placed = true if grid[end_row_index][end_column_index].is_ship? == true
       end
     end
@@ -34,8 +36,8 @@ module ShipPlacement
       next if grid[start_row_index][start_column_index].is_ship? == true
       end_row_index, end_column_index, end_cell = generate_large_ship_end_position(start_row_index, start_column_index)
       if !grid[end_row_index].nil? && !grid[end_row_index][end_column_index].nil?
-        grid.place_large_ship(start_cell, end_cell)
-        if grid[end_row_index][end_column_index].is_ship? == true && grid[start_row_index][start_column_index].is_ship?
+        grid.place_large_ship(start_cell, end_cell, :computer)
+        if grid[end_row_index][end_column_index].is_ship? == true && grid[start_row_index][start_column_index].is_ship? == true
           ship_placed = true 
         end
       end
@@ -44,16 +46,36 @@ module ShipPlacement
   end
 
   def place_user_small_ship(grid)
-    start_cell = gets.chomp
-    end_cell = gets.chomp
-    grid.place_small_ship(start_cell, end_cell)
+    ship_placed = false
+    until ship_placed
+      start_cell = gets.chomp
+      end_cell = gets.chomp
+      start_row_index, start_column_index = GridHelper::format_position(start_cell)
+      end_row_index, end_column_index = GridHelper::format_position(end_cell)
+      if !grid[end_row_index].nil? && !grid[end_row_index][end_column_index].nil?
+        grid.place_small_ship(start_cell, end_cell, :player)
+        if grid[end_row_index][end_column_index].is_ship? == true && grid[start_row_index][start_column_index].is_ship? == true
+        ship_placed = true
+        end
+      end
+    end
     grid
   end
 
   def place_user_large_ship(grid)
-    start_cell = gets.chomp
-    end_cell = gets.chomp
-    grid.place_large_ship(start_cell, end_cell)
+    ship_placed = false
+    until ship_placed
+      start_cell = gets.chomp
+      end_cell = gets.chomp
+      start_row_index, start_column_index = GridHelper::format_position(start_cell)
+      end_row_index, end_column_index = GridHelper::format_position(end_cell)
+      if !grid[end_row_index].nil? && !grid[end_row_index][end_column_index].nil?
+        grid.place_large_ship(start_cell, end_cell, :player)
+        if grid[end_row_index][end_column_index].is_ship? == true && grid[start_row_index][start_column_index].is_ship? == true
+          ship_placed = true
+        end
+      end
+    end
     grid
   end
 
@@ -191,4 +213,16 @@ module ShipPlacement
     end_cell
   end
 
+  def convert_formatted_cell_to_indices(start_cell, end_cell)
+    start_row_letter = start_cell.split("")[0]
+    start_row_index = {"A" => 0, "B" => 1, "C" => 2, "D" => 3}[start_row_letter]
+    start_column = start_cell.split("")[1]
+    start_column_index = start_column.to_i - 1
+
+    end_row_letter = end_cell.split("")[0]
+    end_row_index = {"A" => 0, "B" => 1, "C" => 2, "D" => 3}[end_row_letter]
+    end_column = end_cell.split("")[1]
+    end_column_index = end_column.to_i - 1
+    [start_row_index, end_row_index, start_column_index, end_column_index]
+  end
 end

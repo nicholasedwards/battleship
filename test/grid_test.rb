@@ -20,7 +20,7 @@ class TestGrid < Minitest::Test
   def test_grid_can_add_small_ships
     empty_grid = Grid.new
     grid = empty_grid.populate_grid
-    grid.place_small_ship("A1", "A2")
+    grid.place_small_ship("A1", "A2", :player)
     assert_equal true, grid[0][0].is_ship?
     assert_equal true, grid[0][1].is_ship?
     assert_equal false, grid[1][0].is_ship?
@@ -29,7 +29,7 @@ class TestGrid < Minitest::Test
 
     another_empty_grid = Grid.new
     another_grid = empty_grid.populate_grid
-    another_grid.place_small_ship("A1", "B1")
+    another_grid.place_small_ship("A1", "B1", :player)
     assert_equal true, another_grid[0][0].is_ship?
     assert_equal true, another_grid[1][0].is_ship?
     assert_equal false, another_grid[0][1].is_ship?
@@ -40,7 +40,7 @@ class TestGrid < Minitest::Test
   def test_grid_can_add_large_ships
     empty_grid = Grid.new
     grid = empty_grid.populate_grid
-    grid.place_large_ship("A1", "A3")
+    grid.place_large_ship("A1", "A3", :player)
     assert_equal true, grid[0][0].is_ship?
     assert_equal true, grid[0][1].is_ship?
     assert_equal true, grid[0][2].is_ship?
@@ -49,7 +49,7 @@ class TestGrid < Minitest::Test
 
     another_empty_grid = Grid.new
     another_grid = empty_grid.populate_grid
-    another_grid.place_large_ship("A1", "C1")
+    another_grid.place_large_ship("A1", "C1", :player)
     assert_equal true, another_grid[0][0].is_ship?
     assert_equal true, another_grid[1][0].is_ship?
     assert_equal true, another_grid[2][0].is_ship?
@@ -61,7 +61,7 @@ class TestGrid < Minitest::Test
     empty_grid = Grid.new
     grid = empty_grid.populate_grid
     assert_output("You tried placing a small ship that is greater than two cells long, or would wrap around the grid! The coordinates must correspond to the first and last cells of the ship. Please try again.\n") do
-      grid.place_small_ship("A1", "A4") 
+      grid.place_small_ship("A1", "A4", :player) 
     end
     assert_equal false, grid[0][0].is_ship?
     assert_equal false, grid[0][1].is_ship?
@@ -69,7 +69,7 @@ class TestGrid < Minitest::Test
     another_empty_grid = Grid.new
     another_grid = another_empty_grid.populate_grid
     assert_output("You tried placing a small ship that is greater than two cells long, or would wrap around the grid! The coordinates must correspond to the first and last cells of the ship. Please try again.\n") do
-      another_grid.place_small_ship("A1", "A4")
+      another_grid.place_small_ship("A1", "A4", :player)
     end
     assert_equal false, another_grid[0][0].is_ship?
     assert_equal false, another_grid[0][1].is_ship?
@@ -79,7 +79,7 @@ class TestGrid < Minitest::Test
     empty_grid = Grid.new
     grid = empty_grid.populate_grid
     assert_output("You tried placing a large ship that is greater than three cells long, or would wrap around the grid! The coordinates must correspond to the first and last cells of the ship. Please try again.\n") do
-      grid.place_large_ship("A1", "A4")
+      grid.place_large_ship("A1", "A4", :player)
     end
     assert_equal false, grid[0][0].is_ship?
     assert_equal false, grid[0][3].is_ship?
@@ -87,7 +87,7 @@ class TestGrid < Minitest::Test
     another_empty_grid = Grid.new
     another_grid = another_empty_grid.populate_grid
     assert_output("You tried placing a large ship that is greater than three cells long, or would wrap around the grid! The coordinates must correspond to the first and last cells of the ship. Please try again.\n") do
-      grid.place_large_ship("A1", "D1")
+      grid.place_large_ship("A1", "D1", :player)
     end
     assert_equal false, grid[0][0].is_ship?
     assert_equal false, grid[3][0].is_ship?
@@ -98,13 +98,13 @@ class TestGrid < Minitest::Test
     grid = empty_grid.populate_grid
 
     assert_output("You tried placing a ship diagonally! Your ship can only be horizontal or vertical. Please try again.\n") {
-      grid.place_small_ship("A1", "B2")
+      grid.place_small_ship("A1", "B2", :player)
     }
     assert_equal false, grid[0][0].is_ship?
     assert_equal false, grid[1][1].is_ship?
 
     assert_output("You tried placing a ship diagonally! Your ship can only be horizontal or vertical. Please try again.\n") {
-      grid.place_large_ship("A1", "D3")
+      grid.place_large_ship("A1", "D3", :player)
     }
     assert_equal false, grid[0][0].is_ship?
     assert_equal false, grid[3][2].is_ship?
@@ -117,27 +117,27 @@ class TestGrid < Minitest::Test
     grid_3 = empty_grid.populate_grid
     grid_4 = empty_grid.populate_grid
 
-    grid_1.place_small_ship("A1", "A2")
+    grid_1.place_small_ship("A1", "A2", :player)
     assert_output("You tried placing a ship that would overlap over another ship! Please try again.\n") {
-      grid_1.place_small_ship("A2", "A3")
+      grid_1.place_small_ship("A2", "A3", :player)
     }
     assert_equal false, grid_1[0][2].is_ship?
 
-    grid_2.place_large_ship("B1", "B3")
+    grid_2.place_large_ship("B1", "B3", :player)
     assert_output("You tried placing a ship that would overlap over another ship! Please try again.\n") {
-      grid_2.place_large_ship("B2", "B4")
+      grid_2.place_large_ship("B2", "B4", :player)
     }
     assert_equal false, grid_2[1][3].is_ship?
 
-    grid_3.place_large_ship("A1", "A3")
+    grid_3.place_large_ship("A1", "A3", :player)
     assert_output("You tried placing a ship that would overlap over another ship! Please try again.\n") {
-      grid_3.place_small_ship("A2", "B2")
+      grid_3.place_small_ship("A2", "B2", :player)
     }
     assert_equal false, grid_3[1][1].is_ship?
 
-    grid_4.place_large_ship("A2", "C2")
+    grid_4.place_large_ship("A2", "C2", :player)
     assert_output("You tried placing a ship that would overlap over another ship! Please try again.\n") {
-      grid_4.place_large_ship("B1", "B3")
+      grid_4.place_large_ship("B1", "B3", :player)
     }
     assert_equal false, grid_4[1][0].is_ship?
   end
