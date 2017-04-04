@@ -1,5 +1,6 @@
 require './lib/grid'
 require './lib/ship_placement_helper'
+require './lib/player'
 include ShipPlacement
 require 'pry'
 
@@ -20,8 +21,13 @@ module GamePlay
   end
 
   def play_game
+    player = Player.new
     computer_grid = GamePlay.create_computer_grid
     player_grid = GamePlay.get_player_grid
+    display_grids(computer_grid, player_grid)
+    puts "It is your turn to fire. Please enter a position to fire on:"
+    player_target = gets.chomp
+    computer_grid = player.fire(player_target, computer_grid)
     display_grids(computer_grid, player_grid)
   end
   
@@ -30,10 +36,14 @@ module GamePlay
     4.times do |row_index|
       row_letter = { 0 => "A", 1 => "B", 2 => "C", 3 => "D"}[row_index]
       print row_letter
+      print " "
       4.times do |column_index|
-        print " "
-        print " "
-        print " "
+        if grid1[row_index][column_index].status == "H" || grid1[row_index][column_index].status == "M"
+          print grid1[row_index][column_index].status
+        else
+          print " "
+        end
+        print "  "
       end
       puts ""
     end
@@ -44,10 +54,14 @@ module GamePlay
     4.times do |row_index|
       row_letter = { 0 => "A", 1 => "B", 2 => "C", 3 => "D"}[row_index]
       print row_letter
+      print " "
       4.times do |column_index|
-        print " "
-        print " "
-        print " "
+        if grid1[row_index][column_index].status == "H" || grid1[row_index][column_index].status == "M"
+          print grid2[row_index][column_index].status
+        else
+          print " "
+        end
+        print "  "
       end
       puts ""
     end
