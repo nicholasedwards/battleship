@@ -7,6 +7,19 @@ include Formatting
 require 'pry'
 
 module GamePlay
+
+  def play_game
+    set_up_game
+    play_until_complete
+  end
+
+  def set_up_game
+    player = Player.new
+    computer_grid = GamePlay.create_computer_grid
+    player_grid = GamePlay.get_player_grid
+    display_grids(computer_grid, player_grid)
+  end
+
   def create_computer_grid
     empty_grid = Grid.new
     grid = empty_grid.populate_grid
@@ -21,67 +34,60 @@ module GamePlay
     player_grid = ShipPlacement.place_player_ships(grid)
     player_grid
   end
+  
+  def display_grids(grid1, grid2)
+    display_grid(grid1)
+    puts "============="
+    display_grid(grid2)
+  end
 
-  def play_game
-    player = Player.new
-    computer_grid = GamePlay.create_computer_grid
-    player_grid = GamePlay.get_player_grid
-    display_grids(computer_grid, player_grid)
+  def display_grid(grid)
+    puts "  1  2  3  4"
+    4.times do |row_index|
+      row_letter = { 0 => "A", 1 => "B", 2 => "C", 3 => "D"}[row_index]
+      print row_letter
+      print " "
+      4.times do |column_index|
+        if grid[row_index][column_index].status == "H" || grid[row_index][column_index].status == "M"
+          print grid[row_index][column_index].status
+        else
+          print " "
+        end
+        print "  "
+      end
+      puts ""
+    end
+  end
+
+  def end_player_turn
+    turn_complete = ""
+    until turn_complete.include?("\n")
+      puts "Please press ENTER to end your turn."
+      turn_complete = gets
+    end
+  end
+
+  def play_until_complete
     game_complete = false
     until game_complete
-      puts "It is your turn to fire. Please enter a position to fire on:"
-      player_target = gets.chomp
-      # validate player_target
-      computer_grid = player.fire(player_target, computer_grid)
-      row_index, column_index = format_position(player_target)
-      if computer_grid[row_index][column_index].status == "H"
-        puts "You hit an enemy ship!"
-      else
-        puts "You missed."
-      end
+      get_player_shot
       display_grids(computer_grid, player_grid)
-      turn_complete = ""
-      until turn_complete.include?("\n")
-        puts "Please press ENTER to end your turn."
-        turn_complete = gets
-      end
+      end_player_turn
+      # change this to only happen when all ship elements on a grid are hit
       game_complete = true
     end
   end
-  
-  def display_grids(grid1, grid2)
-    puts "  1  2  3  4"
-    4.times do |row_index|
-      row_letter = { 0 => "A", 1 => "B", 2 => "C", 3 => "D"}[row_index]
-      print row_letter
-      print " "
-      4.times do |column_index|
-        if grid1[row_index][column_index].status == "H" || grid1[row_index][column_index].status == "M"
-          print grid1[row_index][column_index].status
-        else
-          print " "
-        end
-        print "  "
-      end
-      puts ""
-    end
 
-    puts "============="
-
-    puts "  1  2  3  4"
-    4.times do |row_index|
-      row_letter = { 0 => "A", 1 => "B", 2 => "C", 3 => "D"}[row_index]
-      print row_letter
-      print " "
-      4.times do |column_index|
-        if grid1[row_index][column_index].status == "H" || grid1[row_index][column_index].status == "M"
-          print grid2[row_index][column_index].status
-        else
-          print " "
-        end
-        print "  "
-      end
-      puts ""
+  def get_player_shot
+    puts "It is your turn to fire. Please enter a position to fire on:"
+    player_target = gets.chomp
+    # validate player_target
+    computer_grid = player.fire(player_target, computer_grid)
+    row_index, column_index = format_position(player_target)
+    if computer_grid[row_index][column_index].status == "H"
+      puts "You hit an enemy ship!"
+    else
+      puts "You missed."
     end
   end
 end
