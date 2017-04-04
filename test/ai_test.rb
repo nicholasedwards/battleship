@@ -1,6 +1,8 @@
 require 'minitest/autorun'
 require './lib/cell'
 require './lib/ai'
+require './lib/grid'
+require 'pry'
 
 class TestAI < Minitest::Test
   def test_ai_can_shoot
@@ -19,10 +21,10 @@ class TestAI < Minitest::Test
     hit_count = 0
     4.times do |row_index|
       4.times do |column_index|
-        hit_count +=1 if player_grid[row_index][column_index].status = "H"
+        hit_count +=1 if player_grid[row_index][column_index].status == "H"
       end
     end
     
-    assert hit_count > 1
+    assert hit_count > 0
   end
 end
