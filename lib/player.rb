@@ -1,5 +1,6 @@
 require './lib/formatting_helper'
 include Formatting
+require 'pry'
 
 class Player
   def fire(target, grid)

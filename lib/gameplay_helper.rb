@@ -3,6 +3,7 @@ require './lib/ship_placement_helper'
 require './lib/player'
 require './lib/formatting_helper'
 require './lib/input_validation'
+require './lib/ai'
 include ShipPlacement
 include Formatting
 include InputValidation
@@ -12,10 +13,11 @@ module GamePlay
 
   def play_game
     player = Player.new
+    ai = AI.new
     computer_grid = GamePlay.create_computer_grid
     player_grid = GamePlay.get_player_grid
     display_grids(computer_grid, player_grid)
-    play_until_complete(player, player_grid, computer_grid)
+    play_until_complete(player, ai, player_grid, computer_grid)
   end
 
   def create_computer_grid
@@ -65,12 +67,13 @@ module GamePlay
     end
   end
 
-  def play_until_complete(player, player_grid, computer_grid)
+  def play_until_complete(player, ai, player_grid, computer_grid)
     game_complete = false
     until game_complete
-      get_player_shot(player, computer_grid)
+      computer_grid = get_player_shot(player, computer_grid)
       display_grids(computer_grid, player_grid)
       end_player_turn
+      player_grid = make_ai_shot(ai, player_grid)
       # change this to only happen when all ship elements on a grid are hit
       game_complete = true
     end
@@ -86,6 +89,17 @@ module GamePlay
       puts "You hit an enemy ship!"
     else
       puts "You missed."
+    end
+    computer_grid
+  end
+
+  def make_ai_shot(ai, player_grid)
+    row_index, column_index, player_grid = ai.fire(player_grid)
+    cell = format_cell(row_index, column_index)
+    if player_grid[row_index][column_index].status == "H"
+      puts "The AI fired at #{cell} and hit one of your ships!"
+    else
+      puts "The AI fired at #{cell} and missed."
     end
   end
 end

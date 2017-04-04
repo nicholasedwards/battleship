@@ -16,15 +16,8 @@ class TestAI < Minitest::Test
     end
 
     ai = AI.new
-    player_grid = ai.fire(player_grid)
-
-    hit_count = 0
-    4.times do |row_index|
-      4.times do |column_index|
-        hit_count +=1 if player_grid[row_index][column_index].status == "H"
-      end
-    end
+    row_index, column_index, player_grid = ai.fire(player_grid)
     
-    assert hit_count > 0
+    assert_equal "H", player_grid[row_index][column_index].status
   end
 end

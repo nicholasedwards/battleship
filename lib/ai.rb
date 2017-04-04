@@ -15,6 +15,6 @@ class AI
       end
       fire_complete = true
     end
-    grid
+    [row_index, column_index, grid]
   end
 end
