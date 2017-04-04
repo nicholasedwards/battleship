@@ -18,6 +18,12 @@ module GamePlay
     player_grid = ShipPlacement.place_player_ships(grid)
     player_grid
   end
+
+  def play_game
+    computer_grid = GamePlay.create_computer_grid
+    player_grid = GamePlay.get_player_grid
+    display_grids(computer_grid, player_grid)
+  end
   
   def display_grids(grid1, grid2)
     puts "  1  2  3  4"
@@ -26,13 +32,13 @@ module GamePlay
       print row_letter
       4.times do |column_index|
         print " "
-        print ( grid1[row_index][column_index].is_ship? == true )
+        print " "
         print " "
       end
       puts ""
     end
 
-    puts "================"
+    puts "============="
 
     puts "  1  2  3  4"
     4.times do |row_index|
@@ -40,7 +46,7 @@ module GamePlay
       print row_letter
       4.times do |column_index|
         print " "
-        print ( grid1[row_index][column_index].is_ship? == true )
+        print " "
         print " "
       end
       puts ""

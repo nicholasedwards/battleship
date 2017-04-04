@@ -12,9 +12,7 @@ until player_input_provided
   action = gets.chomp
     if action == "p" || action == "play"
       player_input_provided = true
-      computer_grid = GamePlay.create_computer_grid
-      player_grid = GamePlay.get_player_grid
-      GamePlay.display_grids(computer_grid, player_grid)
+      GamePlay.play_game
     elsif action == "i" || action == "instructions"
       instructions = File.open("./instructions/instructions.txt", "r")
       puts instructions.read
