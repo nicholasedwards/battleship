@@ -10,10 +10,10 @@ module ShipPlacement
     grid_with_both_ships
   end
 
-  def place_user_ships(grid)
-    grid_with_small_ship = place_user_small_ship(grid)
+  def place_player_ships(grid)
+    grid_with_small_ship = place_player_small_ship(grid)
     puts "Enter the squares for the three-unit ship:\n"
-    grid_with_both_ships = place_user_large_ship(grid_with_small_ship)
+    grid_with_both_ships = place_player_large_ship(grid_with_small_ship)
     grid_with_both_ships
   end
 
@@ -34,7 +34,6 @@ module ShipPlacement
     ship_placed = false
     until ship_placed
       start_row_index, start_column_index, start_cell = generate_start_position
-      next if grid[start_row_index][start_column_index].is_ship? == true
       end_row_index, end_column_index, end_cell = generate_large_ship_end_position(start_row_index, start_column_index)
       if !grid[end_row_index].nil? && !grid[end_row_index][end_column_index].nil?
         grid = grid.place_large_ship(start_cell, end_cell, :computer)
@@ -46,7 +45,7 @@ module ShipPlacement
     grid
   end
 
-  def place_user_small_ship(grid)
+  def place_player_small_ship(grid)
     ship_placed = false
     until ship_placed
       start_cell = gets.chomp
@@ -63,7 +62,7 @@ module ShipPlacement
     grid
   end
 
-  def place_user_large_ship(grid)
+  def place_player_large_ship(grid)
     ship_placed = false
     until ship_placed
       start_cell = gets.chomp

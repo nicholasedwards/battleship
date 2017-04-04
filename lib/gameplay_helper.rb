@@ -12,11 +12,11 @@ module GamePlay
     computer_grid
   end
 
-  def get_user_grid
+  def get_player_grid
     empty_grid = Grid.new
     grid = empty_grid.populate_grid
-    user_grid = ShipPlacement.place_user_ships(grid)
-    user_grid
+    player_grid = ShipPlacement.place_player_ships(grid)
+    player_grid
   end
   
   def display_grid(grid)
