@@ -9,15 +9,11 @@ require 'pry'
 module GamePlay
 
   def play_game
-    set_up_game
-    play_until_complete
-  end
-
-  def set_up_game
     player = Player.new
     computer_grid = GamePlay.create_computer_grid
     player_grid = GamePlay.get_player_grid
     display_grids(computer_grid, player_grid)
+    play_until_complete(player, player_grid, computer_grid)
   end
 
   def create_computer_grid
@@ -44,7 +40,7 @@ module GamePlay
   def display_grid(grid)
     puts "  1  2  3  4"
     4.times do |row_index|
-      row_letter = { 0 => "A", 1 => "B", 2 => "C", 3 => "D"}[row_index]
+      row_letter = get_row_letter(row_index)
       print row_letter
       print " "
       4.times do |column_index|
@@ -67,10 +63,10 @@ module GamePlay
     end
   end
 
-  def play_until_complete
+  def play_until_complete(player, player_grid, computer_grid)
     game_complete = false
     until game_complete
-      get_player_shot
+      get_player_shot(player, computer_grid)
       display_grids(computer_grid, player_grid)
       end_player_turn
       # change this to only happen when all ship elements on a grid are hit
@@ -78,7 +74,7 @@ module GamePlay
     end
   end
 
-  def get_player_shot
+  def get_player_shot(player, computer_grid)
     puts "It is your turn to fire. Please enter a position to fire on:"
     player_target = gets.chomp
     # validate player_target
