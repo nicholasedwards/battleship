@@ -1,4 +1,3 @@
-require 'pry'
 module InputValidation
   def validate_input(input, purpose)
     if purpose == :start
@@ -25,5 +24,4 @@ module InputValidation
       end
     end
   end
-
 end
