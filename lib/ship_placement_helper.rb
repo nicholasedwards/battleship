@@ -217,7 +217,7 @@ class Array
   def place_small_ship(start_position, end_position, user)
     start_row_index, start_column_index = Formatting.format_position(start_position)
     end_row_index, end_column_index = Formatting.format_position(end_position)
-    if Formatting.validate_small_ship(start_row_index, start_column_index, end_row_index, end_column_index, user) == true && no_overlaps?(start_row_index, start_column_index, end_row_index, end_column_index, user) == true
+    if ShipPlacementValidation.validate_small_ship(start_row_index, start_column_index, end_row_index, end_column_index, user) == true && no_overlaps?(start_row_index, start_column_index, end_row_index, end_column_index, user) == true
       set_ends_of_ship(start_row_index, start_column_index, end_row_index, end_column_index)
     end
     self
@@ -226,7 +226,7 @@ class Array
   def place_large_ship(start_position, end_position, user)
     start_row_index, start_column_index = Formatting.format_position(start_position)
     end_row_index, end_column_index = Formatting.format_position(end_position)
-    if Formatting.validate_large_ship(start_row_index, start_column_index, end_row_index, end_column_index, user) == true && no_overlaps?(start_row_index, start_column_index, end_row_index, end_column_index, user) == true
+    if ShipPlacementValidation.validate_large_ship(start_row_index, start_column_index, end_row_index, end_column_index, user) == true && no_overlaps?(start_row_index, start_column_index, end_row_index, end_column_index, user) == true
       set_ends_of_ship(start_row_index, start_column_index, end_row_index, end_column_index)
       set_middle_of_large_ship(start_row_index, start_column_index, end_row_index, end_column_index)
     end
