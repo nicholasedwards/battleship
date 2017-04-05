@@ -69,14 +69,22 @@ module GamePlay
 
   def play_until_complete(player, ai, player_grid, computer_grid)
     game_complete = false
+    all_player_ships_sunk = false
+    all_ai_ships_sunk = false
     until game_complete
       computer_grid = get_player_shot(player, computer_grid)
       display_grids(computer_grid, player_grid)
       end_player_turn
       player_grid = make_ai_shot(ai, player_grid)
       display_grids(computer_grid, player_grid)
+      all_player_ships_sunk = all_ships_sunk(computer_grid)
+      all_ai_ships_sunk = all_ships_sunk(player_grid)
       # change this to only happen when all ship elements on a grid are hit
-      game_complete = true
+      if all_player_ships_sunk
+        puts "The AI sunk all of your ships! Sleep well in Davy Jone's locker."
+        game_complete = true
+      end
+
     end
   end
 
@@ -103,5 +111,9 @@ module GamePlay
       puts "The AI fired at #{cell} and missed."
     end
     player_grid
+  end
+
+  def all_ships_sunk(grid)
+    return false
   end
 end
