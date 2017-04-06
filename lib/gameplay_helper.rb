@@ -89,7 +89,7 @@ module GamePlay
   def get_player_shot(player, computer_grid)
     puts "It is your turn to fire. Please enter a position to fire on:"
     player_target = gets.chomp
-    player_target = validate_input(player_target, :target)
+    player_target = validate_input(computer_grid, player_target, :target)
     computer_grid = player.fire(player_target, computer_grid)
     row_index, column_index = format_position(player_target)
     if computer_grid[row_index][column_index].status == "H"

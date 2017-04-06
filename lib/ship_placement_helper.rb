@@ -49,9 +49,9 @@ module ShipPlacement
     ship_placed = false
     until ship_placed
       start_cell = gets.chomp
-      start_cell = validate_input(start_cell, :start)
+      start_cell = validate_input(grid, start_cell, :start)
       end_cell = gets.chomp
-      end_cell = validate_input(end_cell, :end)
+      end_cell = validate_input(grid, end_cell, :end)
       start_row_index, start_column_index = Formatting.format_position(start_cell)
       end_row_index, end_column_index = Formatting.format_position(end_cell)
       if !grid[end_row_index].nil? && !grid[end_row_index][end_column_index].nil?
@@ -68,9 +68,9 @@ module ShipPlacement
     ship_placed = false
     until ship_placed
       start_cell = gets.chomp
-      start_cell = validate_input(start_cell, :start)
+      start_cell = validate_input(grid, start_cell, :start)
       end_cell = gets.chomp
-      end_cell = validate_input(end_cell, :end)
+      end_cell = validate_input(grid, end_cell, :end)
       start_row_index, start_column_index = Formatting.format_position(start_cell)
       end_row_index, end_column_index = Formatting.format_position(end_cell)
       if !grid[end_row_index].nil? && !grid[end_row_index][end_column_index].nil?
