@@ -20,6 +20,7 @@ module InputValidation
         puts "Your ship's end coordinates do not represent a valid position on the grid. Please re-enter the end coordinates." if purpose == :end
         puts "That target does not represent a valid position on the grid. Please re-enter the coordinates of your target." if purpose == :target
         input = gets.chomp
+        row_index, column_index = format_position(input)
       elsif purpose == :target && ( !grid[row_index].nil? && !grid[row_index][column_index].nil?) && ( grid[row_index][column_index].status == "M" || grid[row_index][column_index].status == "H" )
         puts "You have already fired on that cell. Please enter a cell that you have not yet fired on."
         input = gets.chomp
