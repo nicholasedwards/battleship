@@ -36,9 +36,13 @@ module GamePlay
   end
   
   def display_grids(grid1, grid2)
+    puts ""
+    puts "====ENEMY===="
     display_grid(grid1)
-    puts "============="
+    puts ""
+    puts "===PLAYER==="
     display_grid(grid2)
+    puts ""
   end
 
   def display_grid(grid)
@@ -62,6 +66,7 @@ module GamePlay
   def end_player_turn
     turn_complete = ""
     until turn_complete.include?("\n")
+      puts ""
       puts "Please press ENTER to end your turn."
       turn_complete = gets
     end
@@ -76,9 +81,11 @@ module GamePlay
       player_grid = make_ai_shot(ai, player_grid)
       display_grids(computer_grid, player_grid)
       if ai.score == 5
+        puts ""
         puts "The AI sunk all of your ships! You are off to sleep in Davy Jones' locker."
         game_complete = true
       elsif player.score == 5
+        puts ""
         puts "You sunk all of the AI's ships! Nice work, sailor."
         game_complete = true
       end
@@ -89,12 +96,15 @@ module GamePlay
   def get_player_shot(player, computer_grid)
     puts "It is your turn to fire. Please enter a position to fire on:"
     player_target = gets.chomp
+    puts ""
     player_target = validate_input(computer_grid, player_target, :target)
     computer_grid = player.fire(player_target, computer_grid)
     row_index, column_index = format_position(player_target)
     if computer_grid[row_index][column_index].status == "H"
+      puts ""
       puts "You hit an enemy ship!"
     else
+      puts ""
       puts "You missed."
     end
     computer_grid
@@ -104,8 +114,10 @@ module GamePlay
     row_index, column_index, player_grid = ai.fire(player_grid)
     cell = format_cell(row_index, column_index)
     if player_grid[row_index][column_index].status == "H"
+      puts ""
       puts "The AI fired at #{cell} and hit one of your ships!"
     else
+      puts ""
       puts "The AI fired at #{cell} and missed."
     end
     player_grid
